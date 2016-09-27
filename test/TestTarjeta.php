@@ -6,7 +6,7 @@ namespace Poli\Tarjeta;
 use PHPUnit\Framework\TestCase;
 
 class TarjetaTest extends TestCase {
-  protected function setup(){
+  public function setup(){
     protected $tarjeta = new Sube;
     protected $colectivo1 = new Colectivo("145", "Rosario Bus");
     protected $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
