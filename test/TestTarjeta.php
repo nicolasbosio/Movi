@@ -14,13 +14,13 @@ class TarjetaTest extends TestCase {
   }
   public function testCargaSaldo1() {
     $tarjeta = new Sube;
-    $tarjeta->recargar(60);
+    $tarjeta->recargar(600);
     $this->assertEquals($tarjeta->saldo(), 720, "Cuando cargo 600 deberia tener finalmente 720");
   }
   public function testCargaSaldo2() {
     $tarjeta = new Sube;
     $tarjeta->recargar(50);
-    $this->assertEquals($tarjeta->saldo(), 320, "Cuando cargo 50 deberia tener finalmente 50");
+    $this->assertEquals($tarjeta->saldo(), 50, "Cuando cargo 50 deberia tener finalmente 50");
   }
 
 
