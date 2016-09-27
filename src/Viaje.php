@@ -16,6 +16,7 @@ class Viaje {
     $this->tipo = $tipo;
     $this->monto = $monto;
     $this->transporte = $transporte;
+    $this->tiempo = $tiempo;
   }
 
   public function tipo() {
