@@ -7,9 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class TarjetaTest extends TestCase {
   public function setup(){
-    protected $tarjeta = new Sube;
-    protected $colectivo1 = new Colectivo("145", "Rosario Bus");
-    protected $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
+    private $tarjeta = new Sube;
+    private $colectivo1 = new Colectivo("145", "Rosario Bus");
+    private $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
   }
 
   public function testCargaSaldo() {
