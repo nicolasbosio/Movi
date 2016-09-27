@@ -33,7 +33,7 @@ class TarjetaTest extends TestCase {
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
     $tarjeta->recargar(20);
-    $tarjeta->pagarColectivo($colectivo1, "2016-09-27 03:12:44");
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
     $this->assertEquals($tarjeta->saldo(), 11.5, "Al pagar un viaje con $20, deberia quedarme $11.5");
   }
 
@@ -41,7 +41,7 @@ class TarjetaTest extends TestCase {
     $tarjeta = new Sube;
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
-    $tarjeta->pagarColectivo($colectivo1, "2016-09-27 03:12:44");
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
     $this->assertEquals($tarjeta->saldo(),-8.5, "Al pagar un viaje sin saldo, debería descontarme $8.5");
   }
 
@@ -51,8 +51,8 @@ class TarjetaTest extends TestCase {
     $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
     $tarjeta->recargar(20);
-    $tarjeta->pagarColectivo($colectivo1, "2016-09-27 03:12:44");
-    $tarjeta->pagarColectivo($colectivo2, "2016-09-27 04:05:44");
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
+    $tarjeta->pagar($colectivo2, "2016-09-27 04:05:44");
     $this->assertEquals($tarjeta->saldo(), 8.86, "Al pagar dos viajes(trasbordo) con $20, deberia quedarme $8.86");
   }
 
@@ -62,8 +62,8 @@ class TarjetaTest extends TestCase {
     $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
     $tarjeta->recargar(20);
-    $tarjeta->pagarColectivo($colectivo1, "2016-09-27 03:12:44");
-    $tarjeta->pagarColectivo($colectivo2, "2016-09-28 03:12:44");
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
+    $tarjeta->pagar($colectivo2, "2016-09-28 03:12:44");
     $this->assertEquals($tarjeta->saldo(), 3, "Al pagar dos viajes viaje con $20, deberia quedarme $3");
   }
 
