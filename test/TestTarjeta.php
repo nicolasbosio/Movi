@@ -6,10 +6,11 @@ namespace Poli\Tarjeta;
 use PHPUnit\Framework\TestCase;
 
 class TarjetaTest extends TestCase {
+  protected $tarjeta, $colectivo1, $colectivo2;
   public function setup(){
-    private $tarjeta = new Sube;
-    private $colectivo1 = new Colectivo("145", "Rosario Bus");
-    private $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
+    $tarjeta = new Sube;
+    $colectivo1 = new Colectivo("145", "Rosario Bus");
+    $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
   }
 
   public function testCargaSaldo() {
