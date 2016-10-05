@@ -12,5 +12,4 @@ script:
   - phpunit test/TestTarjeta.php
 
 after_success:
-  - travis_retry php vendor/bin/coveralls
-  - travis_retry php vendor/bin/coveralls -v
+  - travis_retry php coveralls
