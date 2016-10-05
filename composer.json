@@ -2,7 +2,8 @@
     "name": "poli/testing",
     "require": {
         "phpunit/phpunit": "^5.5",
-        "fzaninotto/faker": "^1.6"
+        "fzaninotto/faker": "^1.6",
+        "satooshi/php-coveralls"
     },
     "autoload": {
         "psr-4": {

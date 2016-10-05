@@ -8,7 +8,8 @@ before_script:
   - php composer.phar install
 
 script:
+  - mkdir -p build/logs
   - phpunit test/TestTarjeta.php
 
 after_success:
-  - coveralls -v
+  - travis_retry php vendor/bin/coveralls
