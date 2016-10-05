@@ -5,6 +5,7 @@ namespace Poli\Tarjeta;
 class Sube implements InterfaceTarjeta {
 
   private $viajes = [];
+  private $last_bike = NULL;
 
   private $saldo = 0;
   protected $descuento;
@@ -23,20 +24,18 @@ class Sube implements InterfaceTarjeta {
   }
 
   protected function pagarBici(Transporte $transporte, $fecha_y_hora){
-    $trasbordo = FALSE;
-    if (count($this->viajes) > 0) {
-      if (end($this->viajes)->tiempo() - strtotime($fecha_y_hora) < 3600) {
-        $trasbordo = TRUE;
+    if($this->saldo() >= 0){
+      if($last_bike){
+        $last_bike = strtotime($fecha_y_hora);
+        $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
+        $this->saldo -= 12;
+      }
+      else{
+        $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
       }
     }
-    if($trasbordo == FALSE){
-      $this->viajes[] = new Viaje($transporte->tipo(), 12, $transporte, strtotime($fecha_y_hora));
-      $this->saldo -= 12;
-    }
-    else{
-      $this->viajes[] = new Viaje($transporte->tipo(), 0, $transporte, strtotime($fecha_y_hora));
-    }
-
+    else
+      echo "Devolve la bici";
   }
 
   protected function pagarColectivo(Transporte $transporte, $fecha_y_hora) {
