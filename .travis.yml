@@ -1,18 +1,13 @@
-
 language: php
 php:
-  - '5.6'
+  - 5.6
 
-before_script:
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar install
-  - composer require satooshi/php-coveralls:dev-master
-  - composer install --dev
- 
-
+install:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --no-interaction
 script:
   - mkdir -p build/logs
-  - phpunit tests/TestTarjeta.php --coverage-clover ./build/logs/clover.xml 
+  - php vendor/bin/phpunit -c phpunit.xml.dist
 
 after_success:
-  - php vendor/bin/coveralls -v
+  - travis_retry php vendor/bin/coveralls
