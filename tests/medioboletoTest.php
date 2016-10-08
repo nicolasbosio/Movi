@@ -5,7 +5,7 @@ namespace Poli\Tarjeta;
 
 use PHPUnit\Framework\TestCase;
 
-class subeTest extends TestCase {
+class medioboletoTest extends TestCase {
 
   public function testCargaSaldo() {
     $tarjeta = new Sube;
