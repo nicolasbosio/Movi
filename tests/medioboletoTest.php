@@ -37,13 +37,13 @@ class medioboletoTest extends TestCase {
     $this->assertEquals($tarjeta->saldo(), 15.75, "Al pagar un viaje con $20, deberia quedarme $15.75");
   }
 
-  public function testPagarViajeSinSaldo() {
+  /*public function testPagarViajeSinSaldo() {
     $tarjeta = new MedioBoleto;
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
     $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
     $this->assertEquals($tarjeta->saldo(),-8.5, "Al pagar un viaje sin saldo, debería descontarme $8.5");
-  }
+  }*/
 
   public function testTransbordo() {
     $tarjeta = new MedioBoleto;
