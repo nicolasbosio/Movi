@@ -41,7 +41,7 @@ class Sube implements InterfaceTarjeta {
   }
 
   protected function pagarColectivo(Transporte $transporte, $fecha_y_hora) {
-    if ($this->saldo() >= 8.5 && $this->plus() == 0){
+    if ($this->saldo() >= 8.5 && $this->plus() == 0 || $this->descuento == 0){
       $trasbordo = FALSE;
       if (count($this->viajes) > 0) {
         if (strtotime($fecha_y_hora) - end($this->viajes)->tiempo() < 3600) {
