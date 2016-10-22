@@ -26,7 +26,7 @@ class Sube implements InterfaceTarjeta {
 
   protected function pagarBici(Transporte $transporte, $fecha_y_hora){
     if($this->saldo() >= 12 && $this->plus()==0){
-      if(date("Y-m-d", strtotime($this->$last_bike)) == date("Y-m-d", strtotime($fecha_y_hora))) {
+      if(date("Y-m-d", strtotime($this->ultimabici())) == date("Y-m-d", strtotime($fecha_y_hora))) {
         $last_bike = strtotime($fecha_y_hora);
         $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
         $this->saldo -= 12;
@@ -102,8 +102,13 @@ class Sube implements InterfaceTarjeta {
   public function saldo() {
     return $this->saldo;
   }
+  
   public function plus() {
     return $this->plus;
+  }
+
+  public function ultimabici() {
+    return $this->last_bike;
   }
 
   public function viajesRealizados() {

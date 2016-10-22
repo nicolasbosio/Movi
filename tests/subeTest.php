@@ -28,6 +28,15 @@ class subeTest extends TestCase {
     $this->assertEquals($tarjeta->saldo(), 50, "Cuando cargo $50 deberia tener finalmente $50");
   }
 
+  public function testViajes() {
+    $tarjeta = new Sube;
+    $tarjeta->recargar(50);
+    $colectivo1 = new Colectivo("145", "Rosario Bus");
+
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
+    $this->expectOutputString("['colectivo', 8.5, 145, 2016-09-27 03:12:44]");
+  }
+
   public function testCPagarViaje() {
     $tarjeta = new Sube;
     $colectivo1 = new Colectivo("145", "Rosario Bus");
