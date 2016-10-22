@@ -41,6 +41,7 @@ class Sube implements InterfaceTarjeta {
   }
 
   protected function pagarColectivo(Transporte $transporte, $fecha_y_hora) {
+    $monto = 0;
     if ($this->saldo() >= 8.5 && $this->plus() == 0 || $this->descuento == 0){
       $monto = $this->trasbordo($fecha_y_hora);
 
@@ -48,7 +49,6 @@ class Sube implements InterfaceTarjeta {
       $this->saldo -= $monto;
     }
     else if($this->saldo() >= 8.5 * ($this->plus()+1)) {
-      $monto = 0;
       $monto = 8.5 * $this->plus();
       $monto += $this->trasbordo($fecha_y_hora);
       
@@ -93,6 +93,7 @@ class Sube implements InterfaceTarjeta {
   }
 
   protected function trasbordo($fecha_y_hora) {
+    $costo = 0;
     $trasbordo = FALSE;
       if (count($this->viajes) > 0) {
         if (strtotime($fecha_y_hora) - end($this->viajes)->tiempo() < 3600) {
@@ -101,12 +102,12 @@ class Sube implements InterfaceTarjeta {
       }
       $this->plus = 0;
       if ($trasbordo) {
-        $monto += 2.64 * $this->descuento;
+        $costo += 2.64 * $this->descuento;
       }
       else {
-        $monto += 8.5 * $this->descuento;
+        $costo += 8.5 * $this->descuento;
       }
-    return $monto;
+    return $costo;
   }
 }
 
