@@ -30,7 +30,7 @@ class Sube implements InterfaceTarjeta {
         $this->viajes[] = new Viaje($transporte->tipo(), 12, $transporte, strtotime($fecha_y_hora));
       }
       else{
-        $last_bike = strtotime($fecha_y_hora);
+        $this->last_bike = strtotime($fecha_y_hora);
         $this->viajes[] = new Viaje($transporte->tipo(), 12, $transporte, strtotime($fecha_y_hora));
         $this->saldo -= 12;
       }

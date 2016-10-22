@@ -122,7 +122,7 @@ class subeTest extends TestCase {
     $tarjeta->pagar($bici1, "2016-09-27 03:12:44");
     $tarjeta->pagar($bici2, "2016-09-28 03:12:44");
 
-    $this->assertEquals($tarjeta->saldo(), 25, "Pago Bici en días diferentes");
+    $this->assertEquals($tarjeta->saldo(), 26, "Pago Bici en días diferentes");
   }
 
   public function testBPagoMismoDia() {
@@ -134,7 +134,7 @@ class subeTest extends TestCase {
     $tarjeta->pagar($bici1, "2016-09-27 03:12:44");
     $tarjeta->pagar($bici2, "2016-09-27 04:12:44");
 
-    $this->assertEquals($tarjeta->saldo(), 37.5, "Pago Bici en un mismo día");
+    $this->assertEquals($tarjeta->saldo(), 38, "Pago Bici en un mismo día");
   }
 
   public function testBImposibleViajar() {
