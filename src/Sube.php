@@ -16,12 +16,12 @@ class Sube implements InterfaceTarjeta {
   }
 
   public function pagar(Transporte $transporte, $fecha_y_hora) {
-    else if ($transporte->tipo() == "colectivo") {
-        $this->pagarColectivo($transporte, $fecha_y_hora);
-      }
-      else if ($transporte->tipo() == "bici") {
-        $this->pagarBici($transporte, $fecha_y_hora);
-      }
+    if ($transporte->tipo() == "colectivo") {
+      $this->pagarColectivo($transporte, $fecha_y_hora);
+    }
+    else if ($transporte->tipo() == "bici") {
+      $this->pagarBici($transporte, $fecha_y_hora);
+    }
   }
 
   protected function pagarBici(Transporte $transporte, $fecha_y_hora){
