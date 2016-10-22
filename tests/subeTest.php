@@ -98,7 +98,7 @@ class subeTest extends TestCase {
 
     $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
     $tarjeta->recargar(20);
-    $tarjeta->pagar($colectivo1, "2016-09-28 03:12:44");
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:42:44");
     $this->assertEquals($tarjeta->saldo(), 8.86, "Tengo un plus, cargo tarjeta, realizo otro viaje");
   }
 
