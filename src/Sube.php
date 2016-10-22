@@ -8,6 +8,7 @@ class Sube implements InterfaceTarjeta {
   private $last_bike = NULL;
 
   private $saldo = 0;
+  private $plus = 0;
   protected $descuento;
 
   public function __construct() {
@@ -15,17 +16,17 @@ class Sube implements InterfaceTarjeta {
   }
 
   public function pagar(Transporte $transporte, $fecha_y_hora) {
-    if ($transporte->tipo() == "colectivo") {
-      $this->pagarColectivo($transporte, $fecha_y_hora);
-    }
-    else if ($transporte->tipo() == "bici") {
-      $this->pagarBici($transporte, $fecha_y_hora);
-    }
+    else if ($transporte->tipo() == "colectivo") {
+        $this->pagarColectivo($transporte, $fecha_y_hora);
+      }
+      else if ($transporte->tipo() == "bici") {
+        $this->pagarBici($transporte, $fecha_y_hora);
+      }
   }
 
   protected function pagarBici(Transporte $transporte, $fecha_y_hora){
-    if($this->saldo() >= 0){
-      if($last_bike){
+    if($this->saldo() >= 12 && $this->plus()==0){
+      if(date("Y-m-d", strtotime($last_bike)) == date("Y-m-d", strtotime($fecha_y_hora))) {
         $last_bike = strtotime($fecha_y_hora);
         $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
         $this->saldo -= 12;
@@ -34,12 +35,13 @@ class Sube implements InterfaceTarjeta {
         $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
       }
     }
-    else
-      echo "Devolve la bici";
+    else{
+      echo ("No se ha podido realizar el viaje solicitado");
+    }
   }
 
   protected function pagarColectivo(Transporte $transporte, $fecha_y_hora) {
-    if ($this->saldo() >= 0){
+    if ($this->saldo() >= 8.5 && $this->plus() == 0){
       $trasbordo = FALSE;
       if (count($this->viajes) > 0) {
         if (strtotime($fecha_y_hora) - end($this->viajes)->tiempo() < 3600) {
@@ -57,13 +59,25 @@ class Sube implements InterfaceTarjeta {
       $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
       $this->saldo -= $monto;
     }
-    else if ($this->saldo() == -8.5){
-      $monto = 8.5 * $this->descuento;
+    else if($this->saldo() >= 8.5 * ($this->plus()+1)) {
+      $monto = 0;
+      $monto = 8.5 * $this->plus();
+      $this->plus = 0;
+      if ($trasbordo) {
+        $monto = 2.64 * $this->descuento;
+      }
+      else {
+        $monto = 8.5 * $this->descuento;
+      }
       $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
       $this->saldo -= $monto;
     }
+    else if ($this->saldo() < 8.5 && $this->plus() < 2){
+      $this->plus += 1;
+      $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
+    }
     else{
-
+      echo ("No se ha podido realizar el viaje solicitado");
     }
   }
 
@@ -81,6 +95,9 @@ class Sube implements InterfaceTarjeta {
 
   public function saldo() {
     return $this->saldo;
+  }
+  public function plus() {
+    return $this->plus;
   }
 
   public function viajesRealizados() {
