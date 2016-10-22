@@ -28,7 +28,7 @@ class subeTest extends TestCase {
     $this->assertEquals($tarjeta->saldo(), 50, "Cuando cargo $50 deberia tener finalmente $50");
   }
 
-  public function testPagarViaje() {
+  public function testCPagarViaje() {
     $tarjeta = new Sube;
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
@@ -37,7 +37,7 @@ class subeTest extends TestCase {
     $this->assertEquals($tarjeta->saldo(), 11.5, "Al pagar un viaje con $20, deberia quedarme $11.5");
   }
 
-  public function testPagarViajeSinSaldo() {
+  public function testCPagarViajeSinSaldo() {
     $tarjeta = new Sube;
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
@@ -46,7 +46,7 @@ class subeTest extends TestCase {
     $this->assertEquals($tarjeta->plus(),1, "Al pagar un viaje sin saldo, debería sumarme un plus");
   }
 
-  public function testTransbordo() {
+  public function testCTransbordo() {
     $tarjeta = new Sube;
     $colectivo1 = new Colectivo("145", "Rosario Bus");
     $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
@@ -57,7 +57,7 @@ class subeTest extends TestCase {
     $this->assertEquals($tarjeta->saldo(), 8.86, "Al pagar dos viajes(trasbordo) con $20, deberia quedarme $8.86");
   }
 
-  public function testNoTransbordo() {
+  public function testCNoTransbordo() {
     $tarjeta = new Sube;
     $colectivo1 = new Colectivo("145", "Rosario Bus");
     $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
@@ -68,4 +68,67 @@ class subeTest extends TestCase {
     $this->assertEquals($tarjeta->saldo(), 3, "Al pagar dos viajes viaje con $20, deberia quedarme $3");
   }
 
+  public function testCPagoPlus() {
+    $tarjeta = new Sube;
+    $colectivo1 = new Colectivo("145", "Rosario Bus");
+
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
+    $tarjeta->recargar(20);
+    $tarjeta->pagar($colectivo1, "2016-09-28 03:12:44");
+    $this->assertEquals($tarjeta->saldo(), 3, "Tengo un plus, cargo tarjeta, realizo otro viaje");
+  }
+
+  public function testCPagoPlusTransbordo() {
+    $tarjeta = new Sube;
+    $colectivo1 = new Colectivo("145", "Rosario Bus");
+
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
+    $tarjeta->recargar(20);
+    $tarjeta->pagar($colectivo1, "2016-09-28 03:12:44");
+    $this->assertEquals($tarjeta->saldo(), 8.86, "Tengo un plus, cargo tarjeta, realizo otro viaje");
+  }
+
+  public function testCImposibleViajar() {
+    $tarjeta = new Sube;
+    $colectivo1 = new Colectivo("145", "Rosario Bus");
+
+    $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
+    $tarjeta->pagar($colectivo1, "2016-09-28 03:12:44");
+    $tarjeta->pagar($colectivo1, "2016-09-29 03:12:44");
+
+    $this->expectOutputString('No se ha podido realizar el viaje solicitado');
+  }
+
+  public function testBPrimerPago() {
+    $tarjeta = new Sube;
+    $bici1 = new Bici("00164");
+    $bici2 = new Bici("00165");
+    $tarjeta->recargar(50);
+
+    $tarjeta->pagar($bici1, "2016-09-27 03:12:44");
+    $tarjeta->pagar($bici2, "2016-09-28 03:12:44");
+
+    $this->assertEquals($tarjeta->saldo(), 25, "Pago Bici en días diferentes");
+  }
+
+  public function testBPagoMismoDia() {
+    $tarjeta = new Sube;
+    $bici1 = new Bici("00164");
+    $bici2 = new Bici("00165");
+    $tarjeta->recargar(50);
+
+    $tarjeta->pagar($bici1, "2016-09-27 03:12:44");
+    $tarjeta->pagar($bici2, "2016-09-27 04:12:44");
+
+    $this->assertEquals($tarjeta->saldo(), 37.5, "Pago Bici en un mismo día");
+  }
+
+  public function testBImposibleViajar() {
+    $tarjeta = new Sube;
+    $bici1 = new Bici("00164");
+
+    $tarjeta->pagar($bici1, "2016-09-27 03:12:44");
+
+    $this->expectOutputString('No se ha podido realizar el viaje solicitado');
+  }
 }
