@@ -74,7 +74,7 @@ class Sube implements InterfaceTarjeta {
     }
     else if ($this->saldo() < 8.5 && $this->plus() < 2){
       $this->plus += 1;
-      $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
+      $this->viajes[] = new Viaje($transporte->tipo(), "Plus ".$this->plus, $transporte, strtotime($fecha_y_hora));
     }
     else{
       echo ("No se ha podido realizar el viaje solicitado");
