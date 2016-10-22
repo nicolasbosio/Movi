@@ -34,7 +34,12 @@ class subeTest extends TestCase {
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
     $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
-    $this->expectOutputString("['colectivo', 8.5, 145, 2016-09-27 03:12:44]");
+    foreach ($tarjeta->viajesRealizados() as $viaje) {
+      $this->assertEquals($viaje->tipo(), "colectivo", "Tipo Colectivo");
+      $this->assertEquals($viaje->monto(), 8.5, "Precio del Viaje");
+      $this->assertEquals($viaje->transporte()->nombre(), 145, "Nombre Colectivo");
+      $this->assertEquals($viaje->tiempo(), "2016-09-27 03:12:44", "Tiempo del Viaje");
+    }
   }
 
   public function testCPagarViaje() {

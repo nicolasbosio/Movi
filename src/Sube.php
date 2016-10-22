@@ -28,11 +28,11 @@ class Sube implements InterfaceTarjeta {
     if($this->saldo() >= 12 && $this->plus()==0){
       if(date("Y-m-d", strtotime($this->ultimabici())) == date("Y-m-d", strtotime($fecha_y_hora))) {
         $last_bike = strtotime($fecha_y_hora);
-        $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
+        $this->viajes[] = new Viaje($transporte->tipo(), 12, $transporte, strtotime($fecha_y_hora));
         $this->saldo -= 12;
       }
       else{
-        $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
+        $this->viajes[] = new Viaje($transporte->tipo(), 12, $transporte, strtotime($fecha_y_hora));
       }
     }
     else{
