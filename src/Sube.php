@@ -70,10 +70,10 @@ class Sube implements InterfaceTarjeta {
       }
       $this->plus = 0;
       if ($trasbordo) {
-        $monto = 2.64 * $this->descuento;
+        $monto += 2.64 * $this->descuento;
       }
       else {
-        $monto = 8.5 * $this->descuento;
+        $monto += 8.5 * $this->descuento;
       }
       $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
       $this->saldo -= $monto;

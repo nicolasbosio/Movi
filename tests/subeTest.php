@@ -38,7 +38,7 @@ class subeTest extends TestCase {
       $this->assertEquals($viaje->tipo(), "colectivo", "Tipo Colectivo");
       $this->assertEquals($viaje->monto(), 8.5, "Precio del Viaje");
       $this->assertEquals($viaje->transporte()->nombre(), 145, "Nombre Colectivo");
-      $this->assertEquals($viaje->tiempo(), "2016-09-27 03:12:44", "Tiempo del Viaje");
+      $this->assertEquals($viaje->tiempo(), strtotime("2016-09-27 03:12:44"), "Tiempo del Viaje");
     }
   }
 
