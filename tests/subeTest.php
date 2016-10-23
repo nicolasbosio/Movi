@@ -95,10 +95,11 @@ class subeTest extends TestCase {
   public function testCPagoPlusTransbordo() {
     $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
+    $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
     $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
     $tarjeta->recargar(20);
-    $tarjeta->pagar($colectivo1, "2016-09-27 03:42:44");
+    $tarjeta->pagar($colectivo2, "2016-09-27 03:42:44");
     $this->assertEquals($tarjeta->saldo(), 8.86, "Tengo un plus, cargo tarjeta, realizo otro viaje");
   }
 
