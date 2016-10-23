@@ -142,6 +142,7 @@ class Sube implements InterfaceTarjeta {
         }
         else{
           if(strtotime($fecha_y_hora) - end($this->viajes)->tiempo() <= 3600)
+            $trasbordo = TRUE;
         }
       }
     return $trasbordo;
