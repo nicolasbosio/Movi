@@ -49,7 +49,8 @@ class Sube implements InterfaceTarjeta {
   protected function pagarColectivo(Transporte $transporte, $fecha_y_hora) {
     $monto = 0;
     if ($this->saldo() >= 8.5 && $this->plus() == 0 || $this->descuento == 0){
-      $monto = $this->costoViaje($fecha_y_hora);
+      $trasbordo = $this->trasbordo($fecha_y_hora, $transporte);
+      $monto = $this->costoViaje($trasbordo);
 
       $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
       $this->saldo -= $monto;
@@ -57,7 +58,8 @@ class Sube implements InterfaceTarjeta {
     }
     else if($this->saldo() >= 8.5 * ($this->plus()+1)) {
       $monto = 8.5 * $this->plus();
-      $monto += $this->costoViaje($fecha_y_hora);
+      $trasbordo = $this->trasbordo($fecha_y_hora, $transporte);
+      $monto += $this->costoViaje($trasbordo);
       
       $this->viajes[] = new Viaje($transporte->tipo(), $monto, $transporte, strtotime($fecha_y_hora));
       $this->saldo -= $monto;
@@ -101,14 +103,8 @@ class Sube implements InterfaceTarjeta {
     return $this->viajes;
   }
 
-  protected function costoViaje($fecha_y_hora) {
+  protected function costoViaje($trasbordo) {
     $costo = 0;
-    $trasbordo = FALSE;
-      if (count($this->viajes) > 0) {
-        if (strtotime($fecha_y_hora) - end($this->viajes)->tiempo() < 3600) {
-          $trasbordo = TRUE;
-        }
-      }
       $this->plus = 0;
       if ($trasbordo) {
         $costo += 2.64 * $this->descuento;
@@ -121,5 +117,33 @@ class Sube implements InterfaceTarjeta {
       }
     return $costo;
   }
-}
 
+  protected function trasbordo($fecha_y_hora, $transporte){
+    $trasbordo = FALSE;
+    $auxH = date("H", end($this->viajes)->tiempo());
+    $auxN = date("N",end($this->viajes)->tiempo());
+      if (count($this->viajes) > 0 && end($this->viajes)->transporte() != $transporte) {
+        if($auxH > 22 && $auxH < 6){
+          if(strtotime($fecha_y_hora) - end($this->viajes)->tiempo() <= 5400)
+              $trasbordo = TRUE;
+        }
+        else if($auxN == 6) {
+          if($auxH < 22 && $auxH > 14){
+            if(strtotime($fecha_y_hora) - end($this->viajes)->tiempo() <= 5400)
+              $trasbordo = TRUE;
+          }
+          else
+            if(strtotime($fecha_y_hora) - end($this->viajes)->tiempo() <= 3600)
+              $trasbordo = TRUE;
+        }
+        else if($auxN == 7) {
+          if(strtotime($fecha_y_hora) - end($this->viajes)->tiempo() <= 5400)
+            $trasbordo = TRUE;
+        }
+        else{
+          if(strtotime($fecha_y_hora) - end($this->viajes)->tiempo() <= 3600)
+        }
+      }
+    return $trasbordo;
+  }
+}
