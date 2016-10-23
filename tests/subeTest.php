@@ -8,28 +8,28 @@ use PHPUnit\Framework\TestCase;
 class subeTest extends TestCase {
 
   public function testCargaSaldo() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
 
     $tarjeta->recargar(290);
     $this->assertEquals($tarjeta->saldo(), 340, "Cuando cargo $290 deberia tener finalmente $340");
   }
 
   public function testCargaSaldo1() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
 
     $tarjeta->recargar(544);
     $this->assertEquals($tarjeta->saldo(), 680, "Cuando cargo $544 deberia tener finalmente $680");
   }
 
   public function testCargaSaldo2() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
 
     $tarjeta->recargar(50);
     $this->assertEquals($tarjeta->saldo(), 50, "Cuando cargo $50 deberia tener finalmente $50");
   }
 
   public function testViajes() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $tarjeta->recargar(50);
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
@@ -43,7 +43,7 @@ class subeTest extends TestCase {
   }
 
   public function testCPagarViaje() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
     $tarjeta->recargar(20);
@@ -52,7 +52,7 @@ class subeTest extends TestCase {
   }
 
   public function testCPagarViajeSinSaldo() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
     $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
@@ -61,7 +61,7 @@ class subeTest extends TestCase {
   }
 
   public function testCTransbordo() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
     $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
@@ -72,7 +72,7 @@ class subeTest extends TestCase {
   }
 
   public function testCNoTransbordo() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
     $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
@@ -83,7 +83,7 @@ class subeTest extends TestCase {
   }
 
   public function testCPagoPlus() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
     $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
@@ -93,7 +93,7 @@ class subeTest extends TestCase {
   }
 
   public function testCPagoPlusTransbordo() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
     $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
@@ -103,7 +103,7 @@ class subeTest extends TestCase {
   }
 
   public function testCImposibleViajar() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
 
     $tarjeta->pagar($colectivo1, "2016-09-27 03:12:44");
@@ -114,7 +114,7 @@ class subeTest extends TestCase {
   }
 
   public function testBPrimerPago() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $bici1 = new Bici("00164");
     $bici2 = new Bici("00165");
     $tarjeta->recargar(50);
@@ -126,7 +126,7 @@ class subeTest extends TestCase {
   }
 
   public function testBPagoMismoDia() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $bici1 = new Bici("00164");
     $bici2 = new Bici("00165");
     $tarjeta->recargar(50);
@@ -138,7 +138,7 @@ class subeTest extends TestCase {
   }
 
   public function testBImposibleViajar() {
-    $tarjeta = new Sube;
+    $tarjeta = new Sube("001");
     $bici1 = new Bici("00164");
 
     $tarjeta->pagar($bici1, "2016-09-27 03:12:44");
