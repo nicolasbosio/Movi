@@ -9,7 +9,7 @@ class trasbordoTest extends TestCase {
 	public function testTrasbordoNoche(){
 		$tarjeta = new Sube("001");
 		$colectivo1 = new Colectivo("145", "Rosario Bus");
-		$colectivo1 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
+		$colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
 		$tarjeta->recargar(20);
   		$tarjeta->pagar($colectivo1, "2016-11-10 03:12:44");
@@ -19,7 +19,7 @@ class trasbordoTest extends TestCase {
 	public function testTrasbordoSabado(){
 		$tarjeta = new Sube("001");
 		$colectivo1 = new Colectivo("145", "Rosario Bus");
-		$colectivo1 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
+		$colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
 		$tarjeta->recargar(20);
   		$tarjeta->pagar($colectivo1, "2016-11-12 15:12:44");
@@ -29,7 +29,7 @@ class trasbordoTest extends TestCase {
 	public function testNoTrasbordoSabado(){
 		$tarjeta = new Sube("001");
 		$colectivo1 = new Colectivo("145", "Rosario Bus");
-		$colectivo1 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
+		$colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
 		$tarjeta->recargar(20);
   		$tarjeta->pagar($colectivo1, "2016-11-12 10:12:44");
@@ -39,7 +39,7 @@ class trasbordoTest extends TestCase {
 	public function testTrasbordoDomingo(){
 		$tarjeta = new Sube("001");
 		$colectivo1 = new Colectivo("145", "Rosario Bus");
-		$colectivo1 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
+		$colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
 
 		$tarjeta->recargar(20);
   		$tarjeta->pagar($colectivo1, "2016-11-13 10:12:44");
