@@ -60,7 +60,7 @@ class subeTest extends TestCase {
     $this->assertEquals($tarjeta->plus(),1, "Al pagar un viaje sin saldo, debería sumarme un plus");
   }
 
-  public function testCTransbordo() {
+  public function testCTrasbordo() {
     $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
     $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
@@ -71,7 +71,7 @@ class subeTest extends TestCase {
     $this->assertEquals($tarjeta->saldo(), 8.86, "Al pagar dos viajes(trasbordo) con $20, deberia quedarme $8.86");
   }
 
-  public function testCNoTransbordo() {
+  public function testCNoTrasbordo() {
     $tarjeta = new Sube("001");
     $colectivo1 = new Colectivo("145", "Rosario Bus");
     $colectivo2 = new Colectivo("115", "Empresa Mixta de Transporte Rosario");
