@@ -123,7 +123,7 @@ class Sube implements InterfaceTarjeta {
       if (count($this->viajes) > 0 && end($this->viajes)->transporte() != $transporte && end($this->viajes)->tipo() != "Trasbordo") {
       $auxH = date("H", end($this->viajes)->tiempo());
       $auxN = date("N", end($this->viajes)->tiempo());
-        if($auxH > 22 && $auxH < 6){
+        if($auxH > 22 || $auxH < 6){
           if(strtotime($fecha_y_hora) - end($this->viajes)->tiempo() <= 5400)
               $trasbordo = TRUE;
         }
